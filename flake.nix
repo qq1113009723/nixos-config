@@ -34,6 +34,7 @@
       specialArgs = {inherit inputs system hostname;};
     in{
       ${hostname} = lib.nixosSystem {
+        inherit system;
         inherit specialArgs;
         modules = [
           ./configuration.nix
