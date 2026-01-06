@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     vim
+    neovim
     wget
     git
     starship
@@ -19,7 +20,6 @@
     lsd
     fish
     wireguard-tools
-    neovim
   ];
 
 }
