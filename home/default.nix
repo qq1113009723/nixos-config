@@ -10,7 +10,7 @@
   userSettings = {
     polkit.enable = true;
     code-cursor.enable = true;
-    jetbrains.idea-ultimate.enable = true;
+    jetbrains.idea.enable = true;
     git = {
       enable = true;
       useProxy = true;

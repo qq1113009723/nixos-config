@@ -6,17 +6,17 @@
   ...
 }:
 let 
-  cfg = config.userSettings.jetbrains.idea-ultimate;
+  cfg = config.userSettings.jetbrains.idea;
 in
 {
   options = {
-    userSettings.jetbrains.idea-ultimate = {
-      enable = lib.mkEnableOption "Enable jetbrains.idea-ultimate";
+    userSettings.jetbrains.idea = {
+      enable = lib.mkEnableOption "Enable jetbrains.idea";
     };
   };
   config = lib.mkIf cfg.enable {
     home.packages = [
-      unfreePkgs.jetbrains.idea-ultimate
+      unfreePkgs.jetbrains.idea
     ];
   };
 
