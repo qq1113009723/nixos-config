@@ -2,7 +2,7 @@
 
 {
   programs.git = {
-    enable = true;
+    enable = false;
     settings = {
       user.name = "zhoujinqiu";
       user.email = "1113009723@qq.com";
