@@ -12,12 +12,10 @@
     kitty
     fastfetch
     nerd-fonts.jetbrains-mono
-    helix
     btop
+    cava
     cmatrix
     yazi
-    bat
-    lsd
     fish
     wireguard-tools
   ];
