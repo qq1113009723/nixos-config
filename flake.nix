@@ -34,7 +34,6 @@
       specialArgs = {inherit inputs system hostname;};
     in{
       ${hostname} = lib.nixosSystem {
-        inherit system;
         inherit specialArgs;
         modules = [
           ./configuration.nix
@@ -46,15 +45,11 @@
       
       pkgs = nixpkgs.legacyPackages.${system};
       unfreePkgs = import inputs.nixpkgs { inherit system; config = { allowUnfree = true; }; };
-
       homeConfigDir = ./home/modules;
       extraSpecialArgs = {inherit inputs unfreePkgs system username;};
-
       generatedHomeModules = lib.map (file: "${homeConfigDir}/${file}") 
         (lib.filter (file: lib.hasSuffix ".nix" file) 
           (lib.attrNames (builtins.readDir homeConfigDir)));
-
-
     in {
         ${username} = home-manager.lib.homeManagerConfiguration{
           inherit pkgs;

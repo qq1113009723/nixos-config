@@ -1,21 +1,29 @@
 { config, lib, ... }:
+let
+  inherit (lib) 
+    mkIf
+    mkEnableOption
+    mkOption
+    types
+  ;
+in  
 
 {
   options.userSettings.git = {
-    enable = lib.mkEnableOption "Enable programs.git";
-    useProxy = lib.mkOption {
-      type = lib.types.bool;
+    enable = mkEnableOption "Enable programs.git";
+    useProxy = mkOption {
+      type = types.bool;
       default = false;
       description = "Whether to set git http/https proxy settings";
     };
-    proxy = lib.mkOption {
-      type = lib.types.str;
+    proxy = mkOption {
+      type = types.str;
       default = "http://192.168.106.171:7890";
       description = "Proxy URL to use when userSettings.git.useProxy is true";
     };
   };
 
-  config = lib.mkIf config.userSettings.git.enable {
+  config = mkIf config.userSettings.git.enable {
     programs.git.enable = true;
 
     programs.git.settings = (
