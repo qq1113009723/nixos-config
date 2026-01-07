@@ -10,10 +10,11 @@
     git
     starship
     kitty
+    cava
+    fzf
     fastfetch
     nerd-fonts.jetbrains-mono
     btop
-    cava
     cmatrix
     yazi
     fish
