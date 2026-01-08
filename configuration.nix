@@ -46,6 +46,7 @@
     vscode.enable = true;
     firefox.enable = true;
     vmware.guest.enable = true;
+    firewall.enable = true;  # 启用防火墙 GUI 工具
     cosmic.enable = false;  # 启用 COSMIC 桌面环境
     gnome.enable = false;  # GNOME 桌面环境（通过 modules/gnome.nix 模块配置）
     niri = {

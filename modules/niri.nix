@@ -95,9 +95,9 @@ in
       XCURSOR_SIZE = "24";
     } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
-    # Wayland 相关配置
-    # 确保 Wayland 会话可以正常运行
-    systemSettings.polkit.enable = true;
-    programs.xwayland.enable = true;
+    # # Wayland 相关配置
+    # # 确保 Wayland 会话可以正常运行
+    # systemSettings.polkit.enable = true;
+    # programs.xwayland.enable = true;
   };
 }

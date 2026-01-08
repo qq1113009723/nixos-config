@@ -12,6 +12,7 @@
     code-cursor.enable = true;
     jetbrains.idea.enable = true;
     spotify.enable = true;
+    fcitx5-config.enable = true;  # 启用 Fcitx5 自动配置（包括 Rime 输入法）
     git = {
       enable = true;
       useProxy = true;
