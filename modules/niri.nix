@@ -90,9 +90,9 @@ in
     # 默认值（鼠标指针相关）+ 用户自定义的环境变量
     # 用户在 configuration.nix 中设置的环境变量会与默认值合并
     environment.variables = {
-      # 默认环境变量
-      XCURSOR_THEME = "Bibata-Modern-Ice";
-      XCURSOR_SIZE = "24";
+      # # 默认环境变量
+      # XCURSOR_THEME = "Bibata-Modern-Ice";
+      # XCURSOR_SIZE = "24";
     } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
     # # Wayland 相关配置

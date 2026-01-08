@@ -73,10 +73,7 @@
     # Shell 管理（通过 modules/shells.nix 模块配置）
     shells = {
       enable = true;        # 启用 shell 管理模块
-      noctalia = false;      # 启用 Noctalia shell（需要 flake.nix 中有 noctalia input）
-      quickshell = false;   # 启用 QuickShell（需要 flake.nix 中有 quickshell input）
-      dms-shell = true;    # 启用 DMS Shell（需要 flake.nix 中有 dms input）
-      ags = false;          # 启用 AGS shell（需要 flake.nix 中有 ags input）
+      enabledShells = [ "noctalia" ];  # 启用的 shell 列表（可多选：["noctalia" "quickshell" "dms-shell" "ags"]）
       # extraShells = [];   # 额外的 shell 包（可选）
     };
   };

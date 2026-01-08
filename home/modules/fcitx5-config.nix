@@ -79,6 +79,11 @@ in
         [Addon]
         # 确保所有插件都启用
         EnabledAddons=
+
+        [UI]
+        # 托盘图标设置（Wayland 环境下）
+        # 确保托盘图标可见（fcitx5 在 Wayland 下会自动使用 StatusNotifierItem 协议）
+        TrayIcon=True
       '';
       force = true;
     };
