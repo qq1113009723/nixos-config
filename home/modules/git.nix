@@ -18,7 +18,7 @@ in
     };
     proxy = mkOption {
       type = types.str;
-      default = "http://192.168.106.171:7890";
+      default = "http://127.0.0.1:7890";
       description = "Proxy URL to use when userSettings.git.useProxy is true";
     };
   };

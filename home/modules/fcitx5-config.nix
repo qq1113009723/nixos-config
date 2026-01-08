@@ -6,39 +6,58 @@
 }:
 let
   cfg = config.userSettings.fcitx5-config;
+  
+  # 根据输入法类型生成 profile 配置
+  generateProfile = inputMethod: ''
+    [Groups/0]
+    Name=Default
+    Default Layout=us
+    DefaultIM=${inputMethod}
+
+    [Groups/0/Items/0]
+    Name=keyboard-us
+    Layout=
+
+    [Groups/0/Items/1]
+    Name=${inputMethod}
+
+    [GroupOrder]
+    Size=1
+    0=Default
+  '';
 in
 {
   options = {
     userSettings.fcitx5-config = {
       enable = lib.mkEnableOption "Enable Fcitx5 input method configuration";
+      
+      inputMethod = lib.mkOption {
+        type = lib.types.enum [ "rime" "pinyin" ];
+        default = "rime";
+        description = "Chinese input method to use. Options: rime (Rime输入法), pinyin (拼音)";
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
     home.sessionVariables = {
+      # GTK/QT 应用输入法支持
       GTK_IM_MODULE = "fcitx";
       QT_IM_MODULE = "fcitx";
+      # X11 应用输入法支持（包括 XWayland）
       XMODIFIERS = "@im=fcitx";
+      # SDL/GLFW 应用输入法支持（Electron 应用需要）
+      SDL_IM_MODULE = "fcitx";
+      GLFW_IM_MODULE = "fcitx";
+      # Electron 应用在 Wayland 下的输入法支持
+      # 注意：某些 Electron 应用可能需要设置 ELECTRON_USE_WAYLAND=1
+      ELECTRON_USE_WAYLAND = "1";
+      # 或者使用 ozone platform hint
+      ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     };
 
     xdg.configFile."fcitx5/profile" = {
-      text = ''
-        [Groups/0]
-        Name=Default
-        Default Layout=us
-        DefaultIM=rime
-
-        [Groups/0/Items/0]
-        Name=keyboard-us
-        Layout=
-
-        [Groups/0/Items/1]
-        Name=rime
-
-        [GroupOrder]
-        Size=1
-        0=Default
-      '';
+      text = generateProfile cfg.inputMethod;
       force = true;
     };
 
@@ -48,15 +67,24 @@ in
         PreeditDelay=0
         DefaultPageSize=5
         UseWaylandIme=True
+        # 强制使用 Wayland IME（对 Electron 应用很重要）
+        ForceWaylandIme=False
+        # 允许 fcitx5 处理全局快捷键
+        AllowFcitx5ToHandleTheGlobalShortcut=True
 
         [Hotkey]
         ActivateKeys=Control+space
         DeactivateKeys=Shift_L+Shift_R
+
+        [Addon]
+        # 确保所有插件都启用
+        EnabledAddons=
       '';
       force = true;
     };
 
-    xdg.dataFile."fcitx5/rime/default.custom.yaml" = {
+    # Rime 输入法配置（仅在选择 rime 时生效）
+    xdg.dataFile."fcitx5/rime/default.custom.yaml" = lib.mkIf (cfg.inputMethod == "rime") {
       text = ''
         patch:
           "menu/page_size": 5
