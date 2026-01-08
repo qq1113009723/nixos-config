@@ -25,10 +25,8 @@
     icons = {
       enable = true;
       iconTheme = "Tela";  # 可选: Papirus, Adwaita, Breeze, Numix, Arc, Tela
-      cursorTheme = "Bibata-Modern-Ice";
+      cursorTheme = "Vimix-cursors";  # 使用实际的主题名称
       cursorSize = 24;
-      # installAllIconThemes = false;  # 设置为 true 可安装所有图标主题（用于预览和切换）
-      # installAllCursorThemes = false;  # 设置为 true 可安装所有光标主题（用于预览和切换）
     };
   };
 }

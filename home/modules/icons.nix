@@ -17,7 +17,7 @@ let
     tela = "Tela";            # 流行的扁平主题
   };
   
-  # 光标主题常量（与系统模块保持一致）
+  # 光标主题常量（使用实际包中的主题名称）
   cursorThemes = {
     bibataModernIce = "Bibata-Modern-Ice";
     bibataModernClassic = "Bibata-Modern-Classic";
@@ -25,13 +25,11 @@ let
     bibataOriginalClassic = "Bibata-Original-Classic";
     adwaita = "Adwaita";
     breeze = "Breeze";
-    capitaine = "Capitaine Cursors";
-    vimix = "Vimix Cursors";
-    phinger = "phinger-cursors";
-    volantes = "Volantes Cursors";
-    macosBigSur = "macOS-BigSur";
-    macosMonterey = "macOS-Monterey";
-    sweet = "Sweet-cursors";
+    capitaine = "capitaine-cursors";
+    vimix = "Vimix-cursors";
+    phingerLight = "phinger-cursors-light";
+    phingerDark = "phinger-cursors-dark";
+    volantes = "volantes_cursors";
   };
 in
 {
@@ -59,20 +57,6 @@ in
         default = 24;
         description = "Cursor size in pixels";
       };
-
-      # 是否安装所有图标主题（用于预览和切换）
-      installAllIconThemes = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Install all available icon themes (useful for previewing and switching)";
-      };
-
-      # 是否安装所有光标主题（用于预览和切换）
-      installAllCursorThemes = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Install all available cursor themes (useful for previewing and switching)";
-      };
     };
   };
 
@@ -86,16 +70,9 @@ in
       ++ lib.optionals (cfg.iconTheme == iconThemes.numix) [ numix-icon-theme-circle ]
       ++ lib.optionals (cfg.iconTheme == iconThemes.arc) [ arc-icon-theme ]
       ++ lib.optionals (cfg.iconTheme == iconThemes.tela) [ tela-icon-theme ]
-      # 如果启用，安装所有图标主题
-      ++ lib.optionals cfg.installAllIconThemes [
-        papirus-icon-theme
-        adwaita-icon-theme
-        libsForQt5.breeze-icons
-        numix-icon-theme-circle
-        arc-icon-theme
-        tela-icon-theme
-      ]
-      # 根据选择的光标主题安装对应的包
+      # 根据选择的光标主题安装对应的包，
+      # lib.elem cfg.cursorTheme [...]：检查用户选择的光标主题是否在列表中，
+      # 如果匹配，则安装 bibata-cursors 包
       ++ lib.optionals (lib.elem cfg.cursorTheme [
         cursorThemes.bibataModernIce
         cursorThemes.bibataModernClassic
@@ -106,23 +83,11 @@ in
       ++ lib.optionals (cfg.cursorTheme == cursorThemes.breeze) [ libsForQt5.breeze-icons ]
       ++ lib.optionals (cfg.cursorTheme == cursorThemes.capitaine) [ capitaine-cursors ]
       ++ lib.optionals (cfg.cursorTheme == cursorThemes.vimix) [ vimix-cursors ]
-      ++ lib.optionals (cfg.cursorTheme == cursorThemes.phinger) [ phinger-cursors ]
-      ++ lib.optionals (cfg.cursorTheme == cursorThemes.volantes) [ volantes-cursors ]
       ++ lib.optionals (lib.elem cfg.cursorTheme [
-        cursorThemes.macosBigSur
-        cursorThemes.macosMonterey
-      ]) [ macos-cursors ]
-      ++ lib.optionals (cfg.cursorTheme == cursorThemes.sweet) [ sweet-cursor-theme ]
-      # 如果启用，安装所有光标主题
-      ++ lib.optionals cfg.installAllCursorThemes [
-        bibata-cursors
-        capitaine-cursors
-        vimix-cursors
-        phinger-cursors
-        volantes-cursors
-        macos-cursors
-        sweet-cursor-theme
-      ]);
+        cursorThemes.phingerLight
+        cursorThemes.phingerDark
+      ]) [ phinger-cursors ]
+      ++ lib.optionals (cfg.cursorTheme == cursorThemes.volantes) [ volantes-cursors ]);
 
     # GTK 配置（用于 GTK2/GTK3/GTK4 应用）
     gtk = {
@@ -131,6 +96,12 @@ in
       # 图标主题名称
       iconTheme = {
         name = cfg.iconTheme;
+      };
+      
+      # 光标主题配置（这是 home-manager 中正确配置光标主题的方式）
+      cursorTheme = {
+        name = cfg.cursorTheme;
+        size = cfg.cursorSize;
       };
     };
 
