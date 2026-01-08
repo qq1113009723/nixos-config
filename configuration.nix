@@ -46,19 +46,25 @@
     vscode.enable = true;
     firefox.enable = true;
     vmware.guest.enable = true;
+    cosmic.enable = true;  # 启用 COSMIC 桌面环境
+    gnome.enable = false;  # GNOME 桌面环境（通过 modules/gnome.nix 模块配置）
+    niri = {
+      enable = false;  # Niri 窗口管理器 + Noctalia shell（通过 modules/niri.nix 模块配置）
+      displayManager = {
+        enable = true;
+        type = "gdm";  # 可选: "gdm", "sddm", "lightdm", "none"
+      };
+    };
   };
 
   #virtualisation.vmware.guest.enable = true;
 
   # 桌面环境（根据下载的 ISO 启用一个）
-  
-  # KDE Plasma
-  # services.desktopManager.plasma6.enable = true;
-
-  # GNOME（GNOME ISO 用）
-  services.xserver.enable = true;
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # 桌面环境通过模块化配置，在 systemSettings 中启用：
+  # - systemSettings.cosmic.enable = true   # COSMIC 桌面（modules/cosmic.nix）
+  # - systemSettings.gnome.enable = true    # GNOME 桌面（modules/gnome.nix）
+  # - systemSettings.niri.enable = true     # Niri + Noctalia（modules/niri.nix）
+  # - KDE Plasma 等其他桌面环境可以类似地模块化
 
   # SSH 服务
   services.openssh.enable = true;
