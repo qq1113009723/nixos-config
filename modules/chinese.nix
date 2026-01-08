@@ -23,27 +23,30 @@
     type = "fcitx5";
     fcitx5.addons = with pkgs; [
       qt6Packages.fcitx5-chinese-addons # fcitx5-chinese-addons
-      fcitx5-gtk
+      fcitx5
       qt6Packages.fcitx5-configtool  # fcitx5-configtool
       fcitx5-nord 
+      fcitx5-rime  # Rime 输入法引擎（必需）
+      rime-ice     # Rime-ICE 配置
    ];
    fcitx5.waylandFrontend = true;
   };
 
   # 中文字体优化
   fonts = {
-  packages = with pkgs; [
-    cascadia-code
-    noto-fonts 
-    noto-fonts-cjk-sans    # 思源黑体 (无衬线)
-    noto-fonts-cjk-serif   # 思源宋体 (衬线)
-    ];
-  fontconfig = {
-    defaultFonts = {
-      sansSerif = [ "Noto Sans CJK SC" ];
-      serif = [ "Noto Serif CJK SC" ];
-    #  monospace = [ "Noto Sans Mono CJK SC" ];
-     };
+    packages = with pkgs; [
+      cascadia-code
+      noto-fonts 
+      noto-fonts-cjk-sans    # 思源黑体 (无衬线)
+      noto-fonts-cjk-serif   # 思源宋体 (衬线)
+      nerd-fonts.jetbrains-mono  # JetBrainsMono Nerd Font (用于终端)
+      ];
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = [ "Noto Sans CJK SC" ];
+        serif = [ "Noto Serif CJK SC" ];
+        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];  # 终端字体优先使用 JetBrainsMono
+      };
    };
  };
 }
