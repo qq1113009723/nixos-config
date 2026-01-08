@@ -82,7 +82,7 @@ in
       wl-clipboard    # Wayland 剪贴板工具
       xsel            # X11 剪贴板工具（兼容性）
       cliphist        # 剪贴板历史管理
-      
+      nautilus
       # 桌面门户（用于应用集成）
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
