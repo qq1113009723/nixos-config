@@ -21,11 +21,11 @@ in
           description = "Enable display manager for Niri session";
         };
         
-        # 显示管理器类型（gdm, sddm, lightdm 等）
+        # 显示管理器类型（仅支持 GDM，因为 Niri 是 Wayland 合成器）
         type = lib.mkOption {
-          type = lib.types.enum [ "gdm" "sddm" "lightdm" "none" ];
+          type = lib.types.enum [ "gdm" "none" ];
           default = "gdm";
-          description = "Display manager type to use with Niri";
+          description = "Display manager type to use with Niri (only GDM supports Wayland properly)";
         };
       };
       
@@ -57,14 +57,14 @@ in
     
     # 配置显示管理器
     # programs.niri.enable 会自动注册 Niri 会话到 display manager
-    services.displayManager = lib.mkIf cfg.displayManager.enable {
-      # 根据选择的显示管理器类型启用相应的服务
-      gdm.enable = cfg.displayManager.type == "gdm";
-      sddm.enable = cfg.displayManager.type == "sddm";
-      lightdm.enable = cfg.displayManager.type == "lightdm";
+    # 注意：Niri 是 Wayland 合成器，只支持 GDM（完全支持 Wayland）
+    # SDDM 和 LightDM 主要支持 X11，无法正确启动 Wayland 会话
+    services.displayManager = lib.mkIf (cfg.displayManager.enable && cfg.displayManager.type == "gdm") {
+      # GDM 支持 Wayland，是唯一推荐的选择
+      gdm.enable = true;
       
       # 设置默认会话为 Niri（programs.niri.enable 会自动创建会话）
-      defaultSession = lib.mkIf (cfg.displayManager.type != "none") "niri";
+      defaultSession = "niri";
     };
     
     # Niri 和 Noctalia 相关的系统包

@@ -52,7 +52,7 @@
       enable = false;  # Niri 窗口管理器 + Noctalia shell（通过 modules/niri.nix 模块配置）
       displayManager = {
         enable = true;
-        type = "gdm";  # 可选: "gdm", "sddm", "lightdm", "none"
+        type = "gdm";  # 可选: "gdm", "none" (仅 GDM 支持 Wayland)
       };
     };
   };
