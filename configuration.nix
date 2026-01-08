@@ -54,6 +54,14 @@
         enable = true;
         type = "gdm";  # 可选: "gdm", "none" (仅 GDM 支持 Wayland)
       };
+      # 环境变量配置（会与默认值合并，默认包含 XCURSOR_THEME 和 XCURSOR_SIZE）
+      environmentVariables = {
+        EDITOR = "vim";
+        VISUAL = "vim";
+        SHELL = "fish";
+        # 你可以在这里添加更多环境变量
+        # 默认的 XCURSOR_THEME 和 XCURSOR_SIZE 会自动保留，除非你显式覆盖它们
+      };
     };
   };
 

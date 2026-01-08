@@ -37,13 +37,11 @@ in
       };
       
       # 环境变量配置
+      # 可以在这里添加额外的环境变量，默认值（XCURSOR_THEME 和 XCURSOR_SIZE）会自动包含
       environmentVariables = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = {
-          XCURSOR_THEME = "Bibata-Modern-Ice";
-          XCURSOR_SIZE = "24";
-        };
-        description = "Environment variables for Niri session";
+        default = {};
+        description = "Additional environment variables for Niri session. Default values (XCURSOR_THEME, XCURSOR_SIZE) are always included.";
       };
     };
   };
@@ -89,7 +87,13 @@ in
     ] ++ cfg.extraPackages;
     
     # 环境变量配置
-    environment.variables = cfg.environmentVariables;
+    # 默认值（鼠标指针相关）+ 用户自定义的环境变量
+    # 用户在 configuration.nix 中设置的环境变量会与默认值合并
+    environment.variables = {
+      # 默认环境变量
+      XCURSOR_THEME = "Bibata-Modern-Ice";
+      XCURSOR_SIZE = "24";
+    } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
     # Wayland 相关配置
     # 确保 Wayland 会话可以正常运行
