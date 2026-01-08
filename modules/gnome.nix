@@ -21,12 +21,7 @@ in
         };
       };
       
-      # 可选：GNOME 版本（gnome 或 gnome-xorg）
-      desktopManager = lib.mkOption {
-        type = lib.types.enum [ "gnome" "gnome-xorg" ];
-        default = "gnome";
-        description = "GNOME desktop manager variant (gnome for Wayland, gnome-xorg for X11)";
-      };
+      # 注意：GNOME 默认使用 Wayland，如需 X11 可通过显示管理器选择 X11 会话
       
       # 可选：额外的系统包
       extraPackages = lib.mkOption {
@@ -51,10 +46,8 @@ in
     # 启用 GDM（登录管理器）
     services.displayManager.gdm.enable = cfg.gdm.enable;
     
-    # 启用 GNOME 桌面环境
-    # 根据 desktopManager 选项选择 Wayland 或 X11 版本
-    services.desktopManager.gnome.enable = cfg.desktopManager == "gnome";
-    services.desktopManager.gnome-xorg.enable = cfg.desktopManager == "gnome-xorg";
+    # 启用 GNOME 桌面环境（默认使用 Wayland）
+    services.desktopManager.gnome.enable = true;
     
     # GNOME 相关的系统包
     environment.systemPackages = with pkgs; [
