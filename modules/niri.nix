@@ -93,7 +93,7 @@ in
     
     # Wayland 相关配置
     # 确保 Wayland 会话可以正常运行
-    security.polkit.enable = true;
+    systemSettings.polkit.enable = true;
     
     # 可选：如果需要 XWayland 支持（用于运行 X11 应用）
     programs.xwayland.enable = true;

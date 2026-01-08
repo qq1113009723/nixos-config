@@ -16,13 +16,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-cosmic, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }: 
   let
     lib = nixpkgs.lib;
     configDir = ./modules;
@@ -42,7 +38,6 @@
         inherit specialArgs;
         modules = [
           ./configuration.nix
-          nixos-cosmic.nixosModules.default
         ] ++ generatedModules; 
       };
     };
