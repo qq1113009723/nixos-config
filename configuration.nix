@@ -69,16 +69,17 @@
         # 默认的 XCURSOR_THEME 和 XCURSOR_SIZE 会自动保留，除非你显式覆盖它们
       };
     };
+
+    # Shell 管理（通过 modules/shells.nix 模块配置）
+    shells = {
+      enable = true;        # 启用 shell 管理模块
+      noctalia = false;      # 启用 Noctalia shell（需要 flake.nix 中有 noctalia input）
+      quickshell = false;   # 启用 QuickShell（需要 flake.nix 中有 quickshell input）
+      dms-shell = true;    # 启用 DMS Shell（需要 flake.nix 中有 dms input）
+      ags = false;          # 启用 AGS shell（需要 flake.nix 中有 ags input）
+      # extraShells = [];   # 额外的 shell 包（可选）
+    };
   };
-
-  #virtualisation.vmware.guest.enable = true;
-
-  # 桌面环境（根据下载的 ISO 启用一个）
-  # 桌面环境通过模块化配置，在 systemSettings 中启用：
-  # - systemSettings.cosmic.enable = true   # COSMIC 桌面（modules/cosmic.nix）
-  # - systemSettings.gnome.enable = true    # GNOME 桌面（modules/gnome.nix）
-  # - systemSettings.niri.enable = true     # Niri + Noctalia（modules/niri.nix）
-  # - KDE Plasma 等其他桌面环境可以类似地模块化
 
   # SSH 服务
   services.openssh.enable = true;

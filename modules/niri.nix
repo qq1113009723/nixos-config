@@ -70,7 +70,7 @@ in
       # Niri 核心组件（由 programs.niri.enable 自动提供）
       
       # Noctalia shell
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+      # inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
       
       # Niri 常用工具
       fuzzel          # 应用启动器

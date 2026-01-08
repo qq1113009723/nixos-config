@@ -12,10 +12,19 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell"; 
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags = {
+      url = "github:Aylur/ags";  
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+ 
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: 
@@ -38,6 +47,8 @@
         inherit specialArgs;
         modules = [
           ./configuration.nix
+          # 导入 dms (DMS Shell) 模块以提供 programs.dms-shell 选项
+          inputs.dms.nixosModules.default
         ] ++ generatedModules; 
       };
     };

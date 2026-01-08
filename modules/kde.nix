@@ -75,19 +75,6 @@ in
     environment.variables = {
       XDG_CURRENT_DESKTOP = if cfg.version == "plasma6" then "KDE" else "KDE";
     };
-
-    # 启用必要的服务
-    services = {
-      # 蓝牙支持（可选）
-      blueman.enable = false;
-    };
-
-    # 启用必要的程序
-    programs = {
-      # dconf 是 GNOME 的配置存储系统，KDE 不需要，但如果运行 GTK 应用可能需要
-      # dconf.enable = true;  # 可选：如果运行 GTK 应用（如 Firefox、Chrome 等）可能需要
-      # kdeconnect.enable = false;
-    };
   };
 }
 
