@@ -73,7 +73,7 @@
     # Shell 管理（通过 modules/shells.nix 模块配置）
     shells = {
       enable = true;        # 启用 shell 管理模块
-      enabledShells = [ "noctalia" ];  # 启用的 shell 列表（可多选：["noctalia" "quickshell" "dms-shell" "ags"]）
+      enabledShells = [ "dms-shell" ];  # 启用的 shell 列表（可多选：["noctalia" "quickshell" "dms-shell" "ags"]）
       # extraShells = [];   # 额外的 shell 包（可选）
     };
   };

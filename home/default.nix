@@ -29,7 +29,7 @@
       # 如果遇到冲突，建议只安装不冲突的主题组合
       installedIconThemes = [ "Tela" "Arc" ];  # 可选: Papirus, Adwaita, Breeze, Numix, Arc, Tela
       # 要应用的图标主题（只能选择一个，必须是已安装的主题之一）
-      iconTheme = "Tela";
+      iconTheme = "Arc";
       # 要安装的光标主题列表（可以安装多个）
       installedCursorThemes = [ "Vimix-cursors" "Bibata-Modern-Ice" "capitaine-cursors" ];
       # 要应用的光标主题（只能选择一个，必须是已安装的主题之一）

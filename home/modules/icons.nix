@@ -156,7 +156,10 @@ in
     # 如果遇到冲突（如 tela 和 papirus 都包含 breeze 图标），建议只安装不冲突的主题
     home.packages = with pkgs;
       # 基础图标主题（始终安装，作为后备）
-      [ hicolor-icon-theme ]
+      [ 
+        hicolor-icon-theme
+        adwaita-icon-theme
+      ]
       # 根据 installedIconThemes 列表安装图标主题包（已去重）
       ++ getIconThemePackages cfg.installedIconThemes
       # 根据 installedCursorThemes 列表安装光标主题包（已去重）
