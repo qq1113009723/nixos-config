@@ -25,6 +25,11 @@ let
   ];
 in
 {
+  # 无条件导入 dms 模块（如果 inputs 中存在 dms）
+  imports = lib.optionals (inputs ? dms) [
+    inputs.dms.nixosModules.default
+  ];
+
   options = {
     systemSettings.shells = {
       enable = lib.mkEnableOption "Enable shell management";
@@ -77,12 +82,7 @@ in
       # AGS (Aylur's Gtk Shell)（如果通过 inputs 提供）
       inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default
     ]
-    ++ cfg.extraShells
-    # Wayland 系统托盘支持（当启用 dms-shell 时）
-    # 安装系统托盘相关的包，用于显示应用图标（如 fcitx5、网络管理器等）
-    ++ lib.optionals (lib.elem shellNames.dmsShell cfg.enabledShells) (with pkgs; [
-
-    ]);
+    ++ cfg.extraShells;
 
     # DMS Shell (DankMaterialShell) - 通过 programs.dms-shell 配置
     # 说明：programs.dms-shell 是由 dms input 的 nixosModules 提供的选项
@@ -90,7 +90,6 @@ in
     # ? 是 Nix 的 hasAttr 操作符，用于检查属性是否存在 inputs ? dms 检查 inputs 是否包含 dms 属性
     programs.dms-shell = lib.mkIf (lib.elem shellNames.dmsShell cfg.enabledShells && inputs ? dms) {
       enable = true;
-      systemd.enable = true;
       package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
   };

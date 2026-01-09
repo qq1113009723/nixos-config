@@ -62,7 +62,9 @@ in
 
   config = lib.mkIf cfg.enable {
     # 图标主题包（根据选择动态安装）
-    home.packages = with pkgs;
+    home.packages = with pkgs;[
+      hicolor-icon-theme
+    ]++
       # 根据选择的图标主题安装对应的包
       (lib.optionals (cfg.iconTheme == iconThemes.papirus) [ papirus-icon-theme ]
       ++ lib.optionals (cfg.iconTheme == iconThemes.adwaita) [ adwaita-icon-theme ]
@@ -125,41 +127,6 @@ in
       XCURSOR_THEME = cfg.cursorTheme;
       XCURSOR_SIZE = toString cfg.cursorSize;
     };
-
-    # 通过 gsettings 设置 GTK 图标和光标主题（更可靠的方式）
-    # 这会写入到 ~/.config/dconf/user
-    dconf.settings = {
-      "org/gnome/desktop/interface" = {
-        icon-theme = cfg.iconTheme;
-        cursor-theme = cfg.cursorTheme;
-        cursor-size = cfg.cursorSize;
-      };
-    };
-
-    # GTK3 配置文件（直接写入，确保兼容性）
-    xdg.configFile."gtk-3.0/settings.ini" = {
-      text = ''
-        [Settings]
-        gtk-icon-theme-name=${cfg.iconTheme}
-        gtk-cursor-theme-name=${cfg.cursorTheme}
-        gtk-cursor-theme-size=${toString cfg.cursorSize}
-      '';
-      force = true;
-    };
-
-    # GTK4 配置文件
-    xdg.configFile."gtk-4.0/settings.ini" = {
-      text = ''
-        [Settings]
-        gtk-icon-theme-name=${cfg.iconTheme}
-        gtk-cursor-theme-name=${cfg.cursorTheme}
-        gtk-cursor-theme-size=${toString cfg.cursorSize}
-      '';
-      force = true;
-    };
-
-    # 注意：.gtkrc-2.0 文件由 gtk.enable = true 自动生成
-    # GTK 模块会自动使用我们配置的 iconTheme，所以不需要手动管理
   };
 }
 

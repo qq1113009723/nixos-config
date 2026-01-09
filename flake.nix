@@ -47,8 +47,6 @@
         inherit specialArgs;
         modules = [
           ./configuration.nix
-          # 导入 dms (DMS Shell) 模块以提供 programs.dms-shell 选项
-          inputs.dms.nixosModules.default
         ] ++ generatedModules; 
       };
     };
