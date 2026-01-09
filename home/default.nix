@@ -1,9 +1,9 @@
-{ username, ... }:
+{ username, stateVersion, ... }:
 
 {
   home = {
-    stateVersion = "25.11";
-    username = username;
+    inherit stateVersion;
+    inherit username;
     homeDirectory = "/home/${username}";
   };
 

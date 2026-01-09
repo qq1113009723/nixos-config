@@ -34,13 +34,14 @@
     hostname = "nixos";
     username = "naraiu";
     system = "x86_64-linux";
+    stateVersion = "25.11";
     generatedModules = lib.map (file: "${configDir}/${file}") 
       (lib.filter (file: lib.hasSuffix ".nix" file) 
         (lib.attrNames (builtins.readDir configDir)));
   in
   rec {
     nixosConfigurations = let 
-      specialArgs = {inherit inputs system hostname;};
+      specialArgs = {inherit inputs system hostname stateVersion;};
     in{
       ${hostname} = lib.nixosSystem {
         inherit system;
@@ -56,7 +57,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       unfreePkgs = import inputs.nixpkgs { inherit system; config = { allowUnfree = true; }; };
       homeConfigDir = ./home/modules;
-      extraSpecialArgs = {inherit inputs unfreePkgs system username;};
+      extraSpecialArgs = {inherit inputs unfreePkgs system username stateVersion;};
       generatedHomeModules = lib.map (file: "${homeConfigDir}/${file}") 
         (lib.filter (file: lib.hasSuffix ".nix" file) 
           (lib.attrNames (builtins.readDir homeConfigDir)));
