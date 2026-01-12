@@ -36,5 +36,9 @@
       cursorTheme = "Vimix-cursors";  # 使用实际的主题名称
       cursorSize = 24;
     };
+    # Niri Wayland 兼容配置
+    niri.compatibility = {
+      enable = true;  # 启用 Niri 兼容配置（Wayland 环境变量等）
+    };
   };
 }

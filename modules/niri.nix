@@ -87,12 +87,15 @@ in
     ] ++ cfg.extraPackages;
     
     # 环境变量配置
-    # 默认值（鼠标指针相关）+ 用户自定义的环境变量
+    # 系统级别的 Wayland 环境变量（用户级别的配置在 home/modules/niri.nix 中）
     # 用户在 configuration.nix 中设置的环境变量会与默认值合并
     environment.variables = {
-      # # 默认环境变量
-      # XCURSOR_THEME = "Bibata-Modern-Ice";
-      # XCURSOR_SIZE = "24";
+      # Wayland 会话类型（系统级别）
+      XDG_SESSION_TYPE = "wayland";
+      
+      # 桌面环境标识（系统级别）
+      XDG_CURRENT_DESKTOP = "niri";
+      XDG_SESSION_DESKTOP = "niri";
     } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
     # # Wayland 相关配置
