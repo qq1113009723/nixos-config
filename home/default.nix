@@ -40,5 +40,6 @@
     niri.compatibility = {
       enable = true;  # 启用 Niri 兼容配置（Wayland 环境变量等）
     };
+    clash-verge-rev.enable = false;
   };
 }

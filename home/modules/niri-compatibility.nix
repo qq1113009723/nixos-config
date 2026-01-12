@@ -45,6 +45,7 @@ in
         NIXOS_OZONE_WL = "1";
         # ELECTRON_OZONE_PLATFORM_HINT: 告诉 Electron 应用使用 Wayland 后端
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+        ELECTRON_USE_WAYLAND="1";
         # XDG_SESSION_TYPE: 标识当前会话类型为 Wayland
         XDG_SESSION_TYPE = "wayland";
 
