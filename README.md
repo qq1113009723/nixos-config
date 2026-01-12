@@ -153,20 +153,20 @@ nix build .#homeConfigurations.naraiu.activationPackage && ./result/activate
 
 有时候你可能想快速安装一个包进行测试，而不想修改配置文件。NixOS 提供了几种方式：
 
-#### 方法 1：使用 nix profile install（推荐，永久安装到用户环境）
+#### 方法 1：使用 nix profile add（推荐，永久安装到用户环境）
 
 这是新的推荐方式，将包安装到用户环境，重启后仍然可用：
 
 ```bash
 # 安装普通包
-nix profile install nixpkgs#vim
-nix profile install nixpkgs#git
-nix profile install nixpkgs#htop
+nix profile add nixpkgs#vim
+nix profile add nixpkgs#git
+nix profile add nixpkgs#htop
 
 # 安装需要 unfree 许可的包（如 JetBrains IDEA）
-NIXPKGS_ALLOW_UNFREE=1 nix profile install nixpkgs#jetbrains.idea-ultimate
-# 或者使用简写
-nix profile install nixpkgs#jetbrains.idea-ultimate --impure
+NIXPKGS_ALLOW_UNFREE=1 nix profile add nixpkgs#jetbrains.idea-ultimate
+# 或者使用 --impure 标志
+nix profile add nixpkgs#jetbrains.idea-ultimate --impure
 
 # 查看已安装的包
 nix profile list
@@ -174,6 +174,8 @@ nix profile list
 # 卸载包
 nix profile remove <profile-index>  # 使用 profile list 查看索引号
 ```
+
+**注意：** `nix profile install` 是 `nix profile add` 的别名，但推荐使用 `nix profile add`。
 
 **优点：**
 - 包会持久化，重启后仍然可用
@@ -250,14 +252,14 @@ nix-env -q
 nix-env -e vim
 ```
 
-**注意：** `nix-env` 已被弃用，推荐使用 `nix profile install`。
+**注意：** `nix-env` 已被弃用，推荐使用 `nix profile add`。
 
 #### 常见开发工具安装示例
 
 **JetBrains IDEA（需要 unfree 许可）**
 ```bash
 # 方法 1：使用 nix profile（推荐）
-NIXPKGS_ALLOW_UNFREE=1 nix profile install nixpkgs#jetbrains.idea-ultimate
+NIXPKGS_ALLOW_UNFREE=1 nix profile add nixpkgs#jetbrains.idea-ultimate
 
 # 方法 2：临时运行
 NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#jetbrains.idea-ultimate
@@ -265,24 +267,24 @@ NIXPKGS_ALLOW_UNFREE=1 nix run nixpkgs#jetbrains.idea-ultimate
 
 **VS Code**
 ```bash
-nix profile install nixpkgs#vscode
+nix profile add nixpkgs#vscode
 ```
 
 **Docker**
 ```bash
-nix profile install nixpkgs#docker
+nix profile add nixpkgs#docker
 ```
 
 **Node.js 和 npm**
 ```bash
-nix profile install nixpkgs#nodejs_20
-nix profile install nixpkgs#npm
+nix profile add nixpkgs#nodejs_20
+nix profile add nixpkgs#npm
 ```
 
 **Python 和 pip**
 ```bash
-nix profile install nixpkgs#python312
-nix profile install nixpkgs#python312Packages.pip
+nix profile add nixpkgs#python312
+nix profile add nixpkgs#python312Packages.pip
 ```
 
 #### 搜索包
@@ -303,7 +305,7 @@ nix show-derivation nixpkgs#vim
 #### 注意事项
 
 - **Unfree 许可**：某些包（如 JetBrains IDE、Steam 等）需要设置 `NIXPKGS_ALLOW_UNFREE=1` 环境变量或使用 `--impure` 标志
-- **持久化**：使用 `nix profile install` 安装的包会持久化，但不会自动同步到配置文件
+- **持久化**：使用 `nix profile add` 安装的包会持久化，但不会自动同步到配置文件
 - **推荐做法**：测试后如果确定需要，建议将包添加到配置文件中，以便版本控制和系统重建
 
 ### 更新命令
@@ -374,6 +376,20 @@ nix flake update nixpkgs
 ```bash
 sudo nixos-rebuild switch --flake .#nixos
 home-manager switch --flake .#naraiu
+```
+
+**更新 code-cursor（需要 unfree 许可）**
+
+`code-cursor` 来自 nixpkgs，更新方式：
+
+**步骤 1：更新 nixpkgs 输入**
+```bash
+nix flake update nixpkgs
+```
+
+**步骤 2：重新应用 home-manager 配置**
+```bash
+home-manager switch --flake .#naraiu  # 替换为你的用户名
 ```
 
 **查看包的当前版本和来源**

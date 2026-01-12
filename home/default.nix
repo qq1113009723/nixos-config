@@ -1,4 +1,4 @@
-{ username, stateVersion, ... }:
+{ username, stateVersion, proxyDefault, ... }:
 
 {
   home = {
@@ -19,7 +19,7 @@
     git = {
       enable = true;
       useProxy = true;
-      proxy = "http://192.168.106.171:7890";
+      proxy =  proxyDefault;
     };
     # 图标主题配置（home-manager 级别）
     icons = {
