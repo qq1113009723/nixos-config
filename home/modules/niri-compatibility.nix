@@ -15,6 +15,27 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ 
+        pkgs.xdg-desktop-portal-termfilechooser
+        pkgs.kdePackages.xdg-desktop-portal-kde 
+      ];
+      config.common = {
+        default = [ "gtk" ];
+        # 只有文件选择器使用终端版本
+        "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+      };
+    };
+
+    # # 设置默认打开方式：文件夹默认用 yazi (终端) 或 dolphin (GUI)
+    # # 如果你更喜欢终端，就把 yazi 放在前面
+    xdg.mimeApps.defaultApplications = {
+      "inode/directory" = [ "org.kde.dolphin.desktop" ];
+      "x-scheme-handler/file" = [ "org.kde.dolphin.desktop" ];
+    };
+
+    
     # Niri Wayland 兼容配置
     # 这些环境变量确保应用在 Niri 下正确运行
     # 

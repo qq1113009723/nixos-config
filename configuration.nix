@@ -57,14 +57,11 @@
     firewall.enable = true;  # 启用防火墙 GUI 工具
     cosmic.enable = false;  # 启用 COSMIC 桌面环境
     gnome.enable = false;  # GNOME 桌面环境（通过 modules/gnome.nix 模块配置）
-    cachy = {
-      enable = false;
-    };
     kde = {
       enable = false;
       version = "plasma6";
     };
-
+    hyprland.enable = false;
     niri = {
       enable = true;  # Niri 窗口管理器 + Noctalia shell（通过 modules/niri.nix 模块配置）
       displayManager = {
@@ -76,6 +73,7 @@
         EDITOR = "vim";
         VISUAL = "vim";
         SHELL = "fish";
+        GTK_USE_PORTAL = "1";
         # 你可以在这里添加更多环境变量
         # 默认的 XCURSOR_THEME 和 XCURSOR_SIZE 会自动保留，除非你显式覆盖它们
       };
