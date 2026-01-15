@@ -13,8 +13,8 @@
   networking.proxy.default = proxyDefault;
   networking.proxy.noProxy = "127.0.0.1,localhost";
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Note: allowUnfree is configured in flake.nix when creating the pkgs instance
+  # Do not set nixpkgs.config here in Flakes mode
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -55,6 +55,9 @@
     firewall.enable = true;  # 启用防火墙 GUI 工具
     cosmic.enable = false;  # 启用 COSMIC 桌面环境
     gnome.enable = false;  # GNOME 桌面环境（通过 modules/gnome.nix 模块配置）
+    cachy = {
+      enable = false;
+    };
     kde = {
       enable = false;
       version = "plasma6";

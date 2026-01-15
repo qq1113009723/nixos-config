@@ -10,7 +10,7 @@
   userSettings = {
     polkit.enable = true;
     code-cursor.enable = true;
-    jetbrains.idea.enable = true;
+    jetbrains.idea.enable = false;
     spotify.enable = true;
     fcitx5-config = {
       enable = true;

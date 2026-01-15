@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  unfreePkgs,
   ...
 }:
 let 
@@ -16,7 +15,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     home.packages = [
-      unfreePkgs.jetbrains.idea
+      pkgs.jetbrains.idea
     ];
   };
 
