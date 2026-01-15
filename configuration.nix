@@ -32,9 +32,11 @@
       "https://mirrors.ustc.edu.cn/nix-channels/store"     # 中科大（可优先）
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"  # 清华
       "https://cache.nixos.org/"
+      "https://nyx.chaotic.cx"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nyx.chaotic.cx-1:9NSqcndB28kzDQ68vIbu6m38JpIn4f/w9uYwLF9l+U0=" 
     ];
     # trusted-users = [ "root" hostname ];
     # max-jobs = 4;
