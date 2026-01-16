@@ -72,13 +72,11 @@ in
     # 环境变量配置
     environment.variables = {
       XDG_SESSION_TYPE = "wayland";
-      XDG_CURRENT_DESKTOP = "niri";
-      XDG_SESSION_DESKTOP = "niri";
     } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
     systemSettings.shells = {
       enable = true;    
-      enabledShells = [ "dms-shell" ]; 
+      enabledShells = [ "noctalia" ]; 
     };
   };
 }

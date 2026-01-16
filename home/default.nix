@@ -11,7 +11,7 @@
     polkit.enable = true;
     code-cursor.enable = true;
     jetbrains.idea.enable = false;
-    spotify.enable = true;
+    spotify.enable = false;
     fcitx5-config = {
       enable = true;
       inputMethod = "pinyin";  
