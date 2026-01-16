@@ -74,7 +74,7 @@
         GTK_USE_PORTAL = "1";
       };
     };
-    hyprland.enable = true;
+    hyprland.enable = false;
 
   };
   services.openssh.enable = true;

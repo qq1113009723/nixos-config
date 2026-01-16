@@ -31,16 +31,27 @@ in
         xwayland.enable = true;
       };
     };
-    environment.variables = {
-    } // cfg.environmentVariables; 
+    programs.hyprlock.enable = true;
+    services.hypridle.enable = true;
 
-    # Necessary packages
     environment.systemPackages = with pkgs; [
-      jq
+      pyprland
+      hyprpicker
+      hyprcursor
+      hyprlock
+      hypridle
+      hyprpaper
+      hyprsunset
+      hyprpolkitagent
       fuzzel
       kitty
-      waybar
+      foot
     ];
+    environment.variables = {
+      NIXOS_OZONE_WL = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
+    } // cfg.environmentVariables; 
+
     
     xdg.portal = {
       enable = true;
