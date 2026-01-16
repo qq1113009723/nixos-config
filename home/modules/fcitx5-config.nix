@@ -41,18 +41,12 @@ in
 
   config = lib.mkIf cfg.enable {
     home.sessionVariables = {
-      # GTK/QT 应用输入法支持
       GTK_IM_MODULE = "fcitx";
       QT_IM_MODULE = "fcitx";
-      # X11 应用输入法支持（包括 XWayland）
       XMODIFIERS = "@im=fcitx";
-      # SDL/GLFW 应用输入法支持（Electron 应用需要）
       SDL_IM_MODULE = "fcitx";
       GLFW_IM_MODULE = "fcitx";
-      # Electron 应用在 Wayland 下的输入法支持
-      # 注意：某些 Electron 应用可能需要设置 ELECTRON_USE_WAYLAND=1
       ELECTRON_USE_WAYLAND = "1";
-      # 或者使用 ozone platform hint
       ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     };
 

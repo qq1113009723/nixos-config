@@ -56,39 +56,27 @@
     vmware.guest.enable = true;
     firewall.enable = true;  # 启用防火墙 GUI 工具
     cosmic.enable = false;  # 启用 COSMIC 桌面环境
-    gnome.enable = false;  # GNOME 桌面环境（通过 modules/gnome.nix 模块配置）
+    gnome.enable = false;  
     kde = {
       enable = false;
       version = "plasma6";
     };
     niri = {
-      enable = true;  # Niri 窗口管理器 + Noctalia shell（通过 modules/niri.nix 模块配置）
+      enable = true;  
       displayManager = {
         enable = true;
-        type = "gdm";  # 可选: "gdm", "none" (仅 GDM 支持 Wayland)
+        type = "gdm";  
       };
-      # 环境变量配置（会与默认值合并，默认包含 XCURSOR_THEME 和 XCURSOR_SIZE）
       environmentVariables = {
         EDITOR = "vim";
         VISUAL = "vim";
         SHELL = "fish";
         GTK_USE_PORTAL = "1";
-        # 你可以在这里添加更多环境变量
-        # 默认的 XCURSOR_THEME 和 XCURSOR_SIZE 会自动保留，除非你显式覆盖它们
       };
     };
+    hyprland.enable = true;
 
-    # Shell 管理（通过 modules/shells.nix 模块配置）
-    shells = {
-      enable = true;        # 启用 shell 管理模块
-      enabledShells = [ "dms-shell" ];  # 启用的 shell 列表（可多选：["noctalia" "quickshell" "dms-shell" "ags"]）
-      # extraShells = [];   # 额外的 shell 包（可选）
-    };
   };
-
-  # SSH 服务
   services.openssh.enable = true;
-
-  # 系统版本（当前最新稳定版 25.11）
   system.stateVersion = "25.11";
 }

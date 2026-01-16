@@ -49,30 +49,13 @@ in
   config = lib.mkIf cfg.enable {
     # 启用 Niri 窗口管理器
     programs.niri.enable = true;
-    
-    # 启用 Wayland（Niri 是 Wayland 合成器，不需要 X11）
-    # 注意：如果同时使用其他需要 X11 的桌面环境，可能需要启用 xserver
-    
-    # 配置显示管理器
-    # programs.niri.enable 会自动注册 Niri 会话到 display manager
-    # 注意：Niri 是 Wayland 合成器，只支持 GDM（完全支持 Wayland）
-    # SDDM 和 LightDM 主要支持 X11，无法正确启动 Wayland 会话
+
     services.displayManager = lib.mkIf (cfg.displayManager.enable && cfg.displayManager.type == "gdm") {
-      # GDM 支持 Wayland，是唯一推荐的选择
       gdm.enable = true;
-      
-      # 设置默认会话为 Niri（programs.niri.enable 会自动创建会话）
       defaultSession = "niri";
     };
     
-    # Niri 和 Noctalia 相关的系统包
     environment.systemPackages = with pkgs; [
-      # Niri 核心组件（由 programs.niri.enable 自动提供）
-      
-      # Noctalia shell
-      # inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-      
-      # Niri 常用工具
       fuzzel          # 应用启动器
       alacritty       # 终端
       bibata-cursors  # 光标主题
@@ -87,20 +70,15 @@ in
     ] ++ cfg.extraPackages;
     
     # 环境变量配置
-    # 系统级别的 Wayland 环境变量（用户级别的配置在 home/modules/niri.nix 中）
-    # 用户在 configuration.nix 中设置的环境变量会与默认值合并
     environment.variables = {
-      # Wayland 会话类型（系统级别）
       XDG_SESSION_TYPE = "wayland";
-      
-      # 桌面环境标识（系统级别）
       XDG_CURRENT_DESKTOP = "niri";
       XDG_SESSION_DESKTOP = "niri";
     } // cfg.environmentVariables;  # 用户自定义的环境变量会覆盖或添加到默认值
     
-    # # Wayland 相关配置
-    # # 确保 Wayland 会话可以正常运行
-    # systemSettings.polkit.enable = true;
-    # programs.xwayland.enable = true;
+    systemSettings.shells = {
+      enable = true;    
+      enabledShells = [ "dms-shell" ]; 
+    };
   };
 }

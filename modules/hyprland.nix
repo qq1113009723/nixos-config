@@ -23,15 +23,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Power key should not shut off computer by defaultPower key shuts of
-    #services.logind.powerKey = "suspend";
 
     # Hyprland
     programs = {
       hyprland = {
         enable = true;
         xwayland.enable = true;
-        withUWSM = true;
       };
     };
     environment.variables = {
@@ -44,21 +41,18 @@ in
       kitty
       waybar
     ];
-    services.xserver = {
+    
+    xdg.portal = {
       enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+    systemSettings.shells = {
+      enable = true;
+      enabledShells = [ "dms-shell" ];
     };
 
-    # services.upower.enable = true;
-    # Keyring
-    services.gnome.gnome-keyring.enable = true;
-
-    # Dbus
-    services.dbus = {
-      enable = true;
-      packages = [ pkgs.dconf ];
-    };
-
-    programs.dconf.enable = true;
 
   };
 }
