@@ -62,7 +62,7 @@
       version = "plasma6";
     };
     niri = {
-      enable = true;  
+      enable = false;  
       displayManager = {
         enable = false;
         type = "gdm";  
@@ -74,7 +74,7 @@
         GTK_USE_PORTAL = "1";
       };
     };
-    hyprland.enable = false;
+    hyprland.enable = true;
 
   };
   services.openssh.enable = true;
