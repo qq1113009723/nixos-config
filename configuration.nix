@@ -61,7 +61,6 @@
       enable = false;
       version = "plasma6";
     };
-    hyprland.enable = false;
     niri = {
       enable = true;  # Niri 窗口管理器 + Noctalia shell（通过 modules/niri.nix 模块配置）
       displayManager = {

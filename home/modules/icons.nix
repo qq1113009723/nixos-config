@@ -175,9 +175,10 @@ in
       };
       
       # 光标主题配置（这是 home-manager 中正确配置光标主题的方式）
+      # 使用 mkDefault 允许其他模块（如 hyprland）覆盖此值
       cursorTheme = {
         name = cfg.cursorTheme;
-        size = cfg.cursorSize;
+        size = lib.mkDefault cfg.cursorSize;
       };
     };
 
