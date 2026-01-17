@@ -49,6 +49,12 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
   };
+  environment.variables = {
+    EDITOR = "vim";
+    VISUAL = "vim";
+    SHELL = "fish";
+  };
+
 
   systemSettings = {
     vscode.enable = true;

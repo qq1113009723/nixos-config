@@ -76,7 +76,7 @@ in
     
     systemSettings.shells = {
       enable = true;    
-      enabledShells = [ "noctalia" ]; 
+      enabledShells = [ "dms-shell" ]; 
     };
   };
 }

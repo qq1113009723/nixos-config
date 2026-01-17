@@ -52,9 +52,7 @@ in
           else null;
       in
       {
-        EDITOR = "vim";
-        VISUAL = "vim";
-        SHELL = "fish";
+
         GTK_USE_PORTAL = "1";
         # --- 1. 强制 Wayland 支持 (通用) ---
         NIXOS_OZONE_WL = "1";
