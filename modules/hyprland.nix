@@ -46,6 +46,9 @@ in
       fuzzel
       kitty
       foot
+      hyprland
+      mesa  
+      libglvnd
     ];
     environment.variables = {
       NIXOS_OZONE_WL = "1";

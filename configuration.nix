@@ -53,7 +53,7 @@
   systemSettings = {
     vscode.enable = true;
     firefox.enable = true;
-    vmware.guest.enable = false;
+    vmware.guest.enable = true;
     firewall.enable = true;  # 启用防火墙 GUI 工具
     cosmic.enable = true;  # 启用 COSMIC 桌面环境
     gnome.enable = false;  
@@ -62,19 +62,13 @@
       version = "plasma6";
     };
     niri = {
-      enable = false;  
+      enable = true;  
       displayManager = {
         enable = false;
         type = "gdm";  
       };
-      environmentVariables = {
-        EDITOR = "vim";
-        VISUAL = "vim";
-        SHELL = "fish";
-        GTK_USE_PORTAL = "1";
-      };
     };
-    hyprland.enable = true;
+    hyprland.enable = false;
 
   };
   services.openssh.enable = true;
