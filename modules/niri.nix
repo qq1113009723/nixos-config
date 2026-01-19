@@ -13,11 +13,11 @@ in
     systemSettings.niri = {
       enable = lib.mkEnableOption "Enable Niri window manager with Noctalia shell";
       
-      # 可选：是否启用显示管理器（Display Manager）
+      # # 可选：是否启用显示管理器（Display Manager）
       displayManager = {
         enable = lib.mkOption {
           type = lib.types.bool;
-          default = true;
+          default = false;
           description = "Enable display manager for Niri session";
         };
         
@@ -50,10 +50,10 @@ in
     # 启用 Niri 窗口管理器
     programs.niri.enable = true;
 
-    services.displayManager = lib.mkIf (cfg.displayManager.enable && cfg.displayManager.type == "gdm") {
-      gdm.enable = true;
-      defaultSession = "niri";
-    };
+    # services.displayManager = lib.mkIf (cfg.displayManager.enable && cfg.displayManager.type == "gdm") {
+    #   gdm.enable = true;
+    #   defaultSession = "niri";
+    # };
     
     environment.systemPackages = with pkgs; [
       fuzzel          # 应用启动器
