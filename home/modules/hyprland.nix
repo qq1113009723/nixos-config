@@ -9,6 +9,6 @@
     # ./hyprland/binds.nix
     # ./hyprland/windowrules.nix
     # ./hyprland/hyprlock.nix
-    # ./hyprland/variables.nix
+    ./hyprland/variables.nix
   ];
 }

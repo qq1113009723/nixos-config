@@ -28,42 +28,45 @@ in
     programs = {
       hyprland = {
         enable = true;
-        xwayland.enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        xwayland = {
+          enable = true;
+        };
+        portalPackage = pkgs.xdg-desktop-portal-hyprland;
       };
     };
-    programs.hyprlock.enable = true;
-    services.hypridle.enable = true;
+
+    # Keyring
+    security.pam.services.login.enableGnomeKeyring = true;
+    services.gnome.gnome-keyring.enable = true;
+    programs.dconf.enable = true;
+    # Dbus
+    services.dbus = {
+      enable = true;
+      packages = [ pkgs.dconf ];
+    };
 
     environment.systemPackages = with pkgs; [
-      pyprland
-      hyprpicker
-      hyprcursor
-      hyprlock
-      hypridle
-      hyprpaper
-      hyprsunset
-      hyprpolkitagent
+      jq
       fuzzel
       kitty
-      foot
-      hyprland
-      mesa  
-      libglvnd
     ];
     environment.variables = {
-      NIXOS_OZONE_WL = "1";
-      WLR_NO_HARDWARE_CURSORS = "1";
+      # NIXOS_OZONE_WL = "1";
+      # WLR_NO_HARDWARE_CURSORS = "1";
+      # GSK_RENDERER = "gl";
     } // cfg.environmentVariables; 
 
+    services.xserver = {
+      enable = true;
+    };
     
     xdg.portal = {
       enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
     };
+
     systemSettings.shells = {
-      enable = true;
+      enable = false;
       enabledShells = [ "noctalia" ];
     };
 

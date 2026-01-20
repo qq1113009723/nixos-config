@@ -61,7 +61,7 @@
     firefox.enable = true;
     vmware.guest.enable = true;
     firewall.enable = true;  # 启用防火墙 GUI 工具
-    cosmic.enable = true;  # 启用 COSMIC 桌面环境
+    cosmic.enable = false;  # 启用 COSMIC 桌面环境
     gnome.enable = false;  
     kde.enable = false;
     niri.enable = true;  
