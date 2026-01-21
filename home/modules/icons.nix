@@ -36,7 +36,6 @@ let
   # 函数定义：iconThemeToPackage :: String -> Package | null
   # 参数：theme - 图标主题名称（字符串）
   # 返回值：对应的 Nix 包，如果主题不存在则返回 null
-  # 
   # 说明：
   # - `theme:` 是函数参数，使用 Nix 的 lambda 表达式语法（类似 λx. ...）
   # - `with pkgs;` 将 pkgs 的属性引入作用域，可以直接使用包名而不需要 pkgs.package-name
