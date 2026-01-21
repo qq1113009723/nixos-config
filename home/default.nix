@@ -6,7 +6,6 @@
     inherit username;
     homeDirectory = "/home/${username}";
   };
-
   userSettings = {
     polkit.enable = true;
     code-cursor.enable = true;
@@ -30,7 +29,7 @@
       cursorSize = 24;
     };
     niri.compatibility = {
-      enable = false;  # 启用 Niri 兼容配置（Wayland 环境变量等）
+      enable = true;  # 启用 Niri 兼容配置（Wayland 环境变量等）
     };
     clash-verge-rev.enable = false;
   };

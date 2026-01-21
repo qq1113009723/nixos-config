@@ -17,22 +17,36 @@ in
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
+      # xdgOpenUsePortal = true;
       extraPortals = [ 
         pkgs.xdg-desktop-portal-termfilechooser
-        pkgs.kdePackages.xdg-desktop-portal-kde 
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-cosmic
       ];
       config.common = {
-        default = [ "gtk" ];
-        # 只有文件选择器使用终端版本
-        "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+        default = [  "cosmic" "gtk" "termfilechooser"];
+        "org.freedesktop.impl.portal.FileChooser" = [ "cosmic" ];
       };
     };
 
-    # # 设置默认打开方式：文件夹默认用 yazi (终端) 或 dolphin (GUI)
-    # # 如果你更喜欢终端，就把 yazi 放在前面
-    xdg.mimeApps.defaultApplications = {
-      "inode/directory" = [ "org.kde.dolphin.desktop" ];
-      "x-scheme-handler/file" = [ "org.kde.dolphin.desktop" ];
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = [ "com.system76.CosmicFiles.desktop" ];
+        "x-scheme-handler/file" = [ "com.system76.CosmicFiles.desktop" ];
+      };
+      associations.added = {
+        "inode/directory" = [ "com.system76.CosmicFiles.desktop" ];
+      };
+    };
+
+    home.file.".config/xdg-desktop-portal-termfilechooser/config" = {
+      text = ''
+        [filechooser]
+        # 这里的命令是你点击上传/保存时，系统要弹出的终端和命令
+        # 假设你用 alacritty 和 yazi
+        cmd=alacritty -e yazi --chooser-file=$path
+      '';
     };
 
     
